@@ -88,35 +88,164 @@ graph LR
 
 #### 节点形状
 
-- 默认节点 A
-- 文本节点 B[bname]
-- 圆角节点 C(cname)
-- 圆形节点 D((dname))
-- 非对称节点 E>ename]
-- 菱形节点 F{fname}
+- 圆角节点
 
-```
-graph TB
-  A
-  B[bname]
-  C(cname)
-  D((dname))
-  E>ename]
-  F{fname}
-```
+  ```
+  flowchart LR
+  	id1(text)
+  ```
 
-```mermaid
-graph TB
-  A
-  B[bname]
-  C(cname)
-  D((dname))
-  E>ename]
-  F{fname}
+  ```mermaid
+  flowchart LR
+  	id1(text)
+  ```
+- 体育场形节点
 
-```
+    ```
+    flowchart LR
+    	id1([text])
+    ```
 
-#### 连线
+    ```mermaid
+    flowchart LR
+    	id1([text])
+    ```
+
+- 子例程节点
+
+    ```
+    flowchart LR
+    	id1[[text]]
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1[[text]]
+    ```
+
+- 圆柱体节点
+
+    ```
+    flowchart LR
+    	id1[(text)]
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1[(text)]
+    ```
+
+- 圆形节点
+
+    ```
+    flowchart LR
+    	id1((text))
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1((text))
+    ```
+
+- 非对称节点
+
+    ```
+    flowchart LR
+    	id1>text]
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1>text]
+    ```
+
+- 菱形节点
+
+    ```
+    flowchart LR
+    	id1{text}
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1{text}
+    ```
+
+- 六角形节点
+
+    ```
+    flowchart LR
+    	id1{{text}}
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1{{text}}
+    ```
+
+- 平行四边形节点
+
+    ```
+    flowchart LR
+    	id1[/text/]
+    ```
+
+    
+
+    ```mermaid
+    flowchart LR
+    	id1[/text/]
+    ```
+
+- 反转平行四边形节点
+
+    ```
+    flowchart LR
+    	id1[\text\]
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1[\text\]
+    ```
+
+- 梯形节点
+
+    ```
+    flowchart LR
+    	id1[/text\]
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1[/text\]
+    ```
+
+- 反转梯形节点
+
+    ```
+    flowchart LR
+    	id1[\text/]
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1[\text/]
+    ```
+
+- 双圆形节点
+
+    ```
+    flowchart LR
+    	id1(((text)))
+    ```
+
+    ```mermaid
+    flowchart LR
+    	id1(((text)))
+    ```
+    
+- 连线
 
 节点间的连接线有多种形状，可以在连接线中加入标签：
 
@@ -152,6 +281,32 @@ graph TB
 ```
 
 > 在连线中输入一些字符时，可能会出错（如`=`,`>`等），此时可以用双引号框住标签中的内容
+
+**补充连接**
+
+​	在一些情况下，可以用&符号简化连接
+
+```
+graph LR
+	a --> b & c --> d
+```
+
+
+
+```mermaid
+graph LR
+	a--> b & c --> d
+```
+
+```
+graph TB
+	A & B --> C & D
+```
+
+```mermaid
+graph TB
+	A & B --> C & D
+```
 
 #### subgraph（子图）
 
@@ -414,6 +569,260 @@ gantt
     Add another diagram to demo page    : 48h
 ```
 
+### class（类图）
+
+​	在软件工程中，统一建模语言中的类图(UML)是一种静态结构图，通过显示系统的类、属性、操作(或方法)以及对象之间的关系来描述系统的结构。类图是面向对象建模的主要构件。它用于应用程序结构的一般概念建模，并用于将模型转换为编程代码的详细建模。类图还可以用于数据建模。类图中的类表示主要元素、应用程序中的交互以及要编程的类。
+
+​	下面是用mermaid呈现的类图
+
+```mermaid
+classDiagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+        +String beakColor
+        +swim()
+        +quack()
+    }
+    class Fish{
+        -int sizeInFeet
+        -canEat()
+    }
+    class Zebra{
+        +bool is_wild
+        +run()
+    }
+```
+
+​	一个类图包含三个部分：
+
+- 顶部是类的名称，它以粗体和居中印刷，第一个字母大写，它还可以包含描述类的性质的可选注释文本。
+- 中间隔间包含类的属性，它是左对齐的，第一个字母小写
+- 底部隔间包含类可以执行的方法，格式同上
+
+#### 定义类和类的成员
+
+​	有两种定义类的方法
+
+- 使用`class A`，显式地定义一个类
+- 使用类之间的连接符号`A <|-- B`，它可以一次定义两个类以及它们间的关系，表示B继承了A
+
+```mermaid
+classDiagram
+	class Animal
+	Vehicle <|-- car
+```
+
+​	类图根据是否存在`()`来区分属性和方法，具有`()`的被视为方法，其它的视为属性。
+
+​	有两种定义类的成员的方法
+
+- 使用`类名 : 成员名称`的方式，用于一次定义一个成员
+- 使用`类名{成员列表}`，可以同时定义多个成员
+
+> 在方法的后面可以增加返回类型，方法与返回类型之间必须有一个空格
+
+```mermaid
+classDiagram
+class BankAccount{
+    +String owner
+    +BigDecimal balance
+    +deposit(amount) bool
+    +withdrawal(amount)
+}
+BankAccount : +String id
+```
+
+#### 类的关系
+
+```
+classDiagram
+classA <|-- classB	继承
+classC *-- classD	组合
+classE o-- classF	聚合
+classG <-- classH	关联
+classI -- classJ	连接(实线) 可靠的
+classK <.. classL	依赖
+classM <|.. classN	实现
+classO .. classP	连接(虚线) 已销毁
+```
+
+```mermaid
+classDiagram
+classA <|-- classB
+classC *-- classD
+classE o-- classF
+classG <-- classH
+classI -- classJ
+classK <.. classL
+classM <|.. classN
+classO .. classP
+```
+
+​	此外，在连接关系的后面可以使用 `:` 来描述两个类之间关系的性质，描述方法为`[classA][Arrow][ClassB]:LabelText`
+
+```mermaid
+classDiagram
+classA --|> classB : Inheritance
+classC --* classD : Composition
+classE --o classF : Aggregation
+classG --> classH : Association
+classI -- classJ : Link(Solid)
+classK ..> classL : Dependency
+classM ..|> classN : Realization
+classO .. classP : Link(Dashed)
+```
+
+#### 数量关系
+
+​	多重符号(Multiplicity notations)放置在关联语句中，通过在箭头之前或之后放置“引号”，来定义基数。
+
+​	不同的基数选项是:
+
+- `1` 只有一个
+- `0..1` 零个或一个
+- `1..*` 一个或多个
+- `*` 多个
+- `n` N {其中 n > 1}
+- `0..n`0到 n {其中 n > 1}
+- `1..n` 1到 n {其中 n > 1}
+
+```mermaid
+classDiagram
+    Customer "1" --> "*" Ticket
+    Student "1" --> "1..*" Course
+    Galaxy --> "many" Star : Contains
+```
+
+
+
+#### 其它规则
+
+- 可以在类中使用泛型(模板)
+
+​	泛型可以表示为类定义的一部分，也可以表示为方法/函数的参数或返回值，但是不支持泛型套泛型
+
+```mermaid
+classDiagram
+class Square~Shape~{
+    int id
+    List~int~ position
+    setPoints(List~int~ points)
+    getPoints() List~int~
+}
+
+Square : -List~string~ messages
+Square : +setMessages(List~string~ messages)
+Square : +getMessages() List~string~
+```
+
+- 可见性
+
+​	用以下的符号表示属性/方法的可见性，它们放在名称之前
+
+> - `+` Public 
+> - `-` Private 
+> - `#` Protected 
+> - `~` Package/Internal 
+
+​	此外，还可以在方法的末尾添加以下符号表示虚拟和静态方法，在属性末尾添加`$`表示静态属性。
+
+> - `*` Abstract   `someAbstractMethod()*`
+> - `$` Static  `someStaticMethod()$`
+
+- 类的注释
+
+​	可以使用标记对类进行注释，以提供关于该类的其他元数据。这可以更清楚地说明它的性质。一些常见的注释包括:
+
+> - `<<Interface>>` To represent an Interface class 表示 Interface 类
+> - `<<Abstract>>` To represent an abstract class 表示抽象类
+> - `<<Service>>` To represent a service class 表示服务类
+> - `<<Enumeration>>` To represent an enum 表示枚举
+
+​	有两种添加注释的方法：
+
+> - 在单独的一行添加注释，`注释语句 类名`
+> - 在类的嵌套声明中进行注释
+
+```mermaid
+classDiagram
+class Shape
+<<interface>> Shape
+Shape : noOfVertices
+Shape : draw()
+
+class Color{
+    <<enumeration>>
+    RED
+    BLUE
+    GREEN
+    WHITE
+    BLACK
+}
+```
+
+**设置图表方向**
+
+​	在类图中，可以使用direction来设置图将呈现的方向
+
+```
+classDiagram
+  direction RL
+  ...
+```
+
+#### 互动
+
+​	可以将单击事件绑定到节点。单击可以导致 javascript 回调或链接，该链接将在新的浏览器选项卡中打开。注意: 在使用 securityLevel = ‘ strong’时禁用此功能，在使用 securityLevel = ‘ lose’时启用此功能。
+
+在声明了所有类之后，在单独的一行上定义这些操作。
+
+```
+action className "reference" "tooltip"
+- action 表示link或callback，具体取决于要调用的交互类型
+- calssName 与操作关联的节点id
+- reference url链接，或者回调函数的名称
+- optional 可选项，tooltip是当鼠标悬停时显示的提示字符串
+click className call callback() "tooltip"
+click className href "url" "tooltip"
+```
+
+**例子**
+
+*URL Link:*
+
+```mermaid
+classDiagram
+class Shape
+link Shape "https://www.github.com" "This is a tooltip for a link"
+class Shape2
+click Shape2 href "https://www.github.com" "This is a tooltip for a link"
+Shape
+
+Shape2
+```
+
+*Callback:*
+
+```mermaid
+classDiagram
+class Shape
+callback Shape "callbackFunction" "This is a tooltip for a callback"
+class Shape2
+click Shape2 call callbackFunction() "This is a tooltip for a callback"
+Shape
+
+Shape2
+
+```
+
+
+
 ## flow（流程图）
 
 ​	先自定义变量，然后用箭头符号将变量连接起来。
@@ -478,4 +887,6 @@ cond2(yes, right)->op
 cond2(no)->e
 
 ```
+
+
 
