@@ -1,18 +1,4 @@
-[首页](http://events.jianshu.io/)[下载APP](http://events.jianshu.io/apps?utm_medium=desktop&utm_source=navbar-apps)[会员](http://events.jianshu.io/vips)[IT技术](http://events.jianshu.io/techareas)
-
-# fedora软件安装手记
-
-[![img](https://cdn2.jianshu.io/assets/default_avatar/2-9636b13945b9ccf345bc98d0d81074eb.jpg)布谷李](http://events.jianshu.io/u/06e4c23ca1f9)
-
-# fedora软件安装手记
-
-[![img](https://cdn2.jianshu.io/assets/default_avatar/2-9636b13945b9ccf345bc98d0d81074eb.jpg)](http://events.jianshu.io/u/06e4c23ca1f9)
-
-[布谷李](http://events.jianshu.io/u/06e4c23ca1f9)
-
-IP属地: 北京
-
-0.5772018.07.20 16:44:15字数 3,440阅读 683
+# fedora软件安装
 
 #### 1. 用户管理
 

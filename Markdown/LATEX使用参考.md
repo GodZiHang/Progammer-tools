@@ -398,9 +398,9 @@ $$
 
   $$
   \begin{array}{cc}
-\mathrm{Bad} & \mathrm{Better} \\
+  \mathrm{Bad} & \mathrm{Better} \\
   \hline \\
-\int_0^1 x^2 dx & \int_0^1 x^2 \,{\rm d}x
+  \int_0^1 x^2 dx & \int_0^1 x^2 \,{\rm d}x
   \end{array}
   $$
 
@@ -435,7 +435,7 @@ $$
 - 显示： 
 
   $$
-f\left(
+  f\left(
      \left[ 
      \frac{
          1+\left\{x,y\right\}
@@ -466,10 +466,10 @@ $$
 - 显示： 
 
   $$
-\begin{aligned}
-a=&\left(1+2+3+  \cdots \right. \\
-& \cdots+ \left. \infty-2+\infty-1+\infty\right)
-\end{aligned}
+  \begin{aligned}
+  a=&\left(1+2+3+  \cdots \right. \\
+  & \cdots+ \left. \infty-2+\infty-1+\infty\right)
+  \end{aligned}
   $$
 
 
@@ -781,7 +781,7 @@ $$
 - 显示： 
 
   $$
-\begin {pmatrix}
+  \begin {pmatrix}
     1 & a_1 & a_1^2 & \cdots & a_1^n \\
   1 & a_2 & a_2^2 & \cdots & a_2^n \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
@@ -809,7 +809,7 @@ $$
 - 显示： 
 
   $$
-\left[
+  \left[
       \begin{array}{cc|c}
       1&2&3\\
         4&5&6
@@ -859,11 +859,11 @@ $$
 - 显示： 
 
   $$
-\begin{align}
+  \begin{align}
   \sqrt{37} & = \sqrt{\frac{73^2-1}{12^2}} \\
- & = \sqrt{\frac{73^2}{12^2}\cdot\frac{73^2-1}{73^2}} \\ 
+   & = \sqrt{\frac{73^2}{12^2}\cdot\frac{73^2-1}{73^2}} \\ 
    & = \sqrt{\frac{73^2}{12^2}}\sqrt{\frac{73^2-1}{73^2}} \\
- & = \frac{73}{12}\sqrt{1 - \frac{1}{73^2}} \\ 
+   & = \frac{73}{12}\sqrt{1 - \frac{1}{73^2}} \\ 
    & \approx \frac{73}{12}\left(1 - \frac{1}{2\cdot73^2}\right)
   \end{align}
   $$
@@ -918,7 +918,7 @@ $$
 - 显示： 
 
   $$
-f(n) =
+  f(n) =
           \begin{cases}
         n/2,  & \text{if $n$ is even} \\
           3n+1, & \text{if $n$ is odd}
@@ -946,7 +946,7 @@ $$
 - 显示： 
 
   $$
-\left.
+  \left.
           \begin{array}{l}
         \text{if $n$ is even:}&n/2\\
           \text{if $n$ is odd:}&3n+1
@@ -1018,11 +1018,11 @@ $$
 - 显示： 
 
   $$
-\begin{array}{c|lcr}
+  \begin{array}{c|lcr}
   n & \text{左对齐} & \text{居中对齐} & \text{右对齐} \\
-\hline
+  \hline
   1 & 0.24 & 1 & 125 \\
-2 & -1 & 189 & -8 \\
+  2 & -1 & 189 & -8 \\
   3 & -20 & 2000 & 1+10i
   \end{array}
   $$
@@ -1139,11 +1139,11 @@ $$
 - 显示： 
 
   $$
-\left\{ 
+  \left\{ 
   \begin{array}{c}
-a_1x+b_1y+c_1z=d_1 \\ 
+  a_1x+b_1y+c_1z=d_1 \\ 
   a_2x+b_2y+c_2z=d_2 \\ 
-a_3x+b_3y+c_3z=d_3
+  a_3x+b_3y+c_3z=d_3
   \end{array}
   \right.
   $$
@@ -1165,11 +1165,11 @@ $$
 - 显示： 
 
   $$
-\begin{cases}
+  \begin{cases}
   a_1x+b_1y+c_1z=d_1 \\ 
-a_2x+b_2y+c_2z=d_2 \\ 
+  a_2x+b_2y+c_2z=d_2 \\ 
   a_3x+b_3y+c_3z=d_3
-\end{cases}
+  \end{cases}
   $$
 
 # 六、连分数使用参考
@@ -1211,7 +1211,7 @@ $$
 - 显示： 
 
   $$
-x = a_0 + \frac{1^2}{a_1
+  x = a_0 + \frac{1^2}{a_1
             + \frac{2^2}{a_2
           + \frac{3^2}{a_3 + \frac{4^4}{a_4 + \cdots}}}}
   $$
@@ -1231,7 +1231,7 @@ $$
 - 显示： 
 
   $$
-x = a_0 + \frac{1^2}{a_1+}
+  x = a_0 + \frac{1^2}{a_1+}
             \frac{2^2}{a_2+}
           \frac{3^2}{a_3 +} \frac{4^4}{a_4 +} \cdots
   $$
@@ -1260,7 +1260,7 @@ $$
 
 - 显示： 
 
-  $$
+$$
 \require{AMScd}
   \begin{CD}
     A @>a>> B\\
@@ -1268,6 +1268,7 @@ $$
     C @>>d> D
   \end{CD}
 $$
+
 其中，`@>>>` 代表右箭头、`@<<<` 代表左箭头、`@VVV` 代表下箭头、`@AAA` 代表上箭头、`@=` 代表水平双实线、`@|` 代表竖直双实线、`@.`代表没有箭头。 
 在 `@>>>` 的 `>>>` 之间任意插入文字即代表该箭头的注释文字。
 
@@ -1283,7 +1284,7 @@ $$
 $$
 ```
 
-- 显示： 
+- 显示：
 $$
 \begin{CD}
     A @>>> B @>{\text{very long label}}>> C \\
