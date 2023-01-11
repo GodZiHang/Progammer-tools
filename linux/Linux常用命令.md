@@ -544,95 +544,28 @@ file_4:5:zwxedkfgj
 
 > ​	vi是Linux系统上的第一个全屏模式编辑器，它用法简单，而且 所占空间不大，操作灵活无比。vim 即 vi IMproved，在 vi 的基础上做了很多改进，如：增加了多级撤销、多窗口操作、崩溃后也可以恢复、增加了稳定性、关键字自动补全、上下文自动补全等功能。关于vim的详细内容，可以参考[这里](vim命令大全.md)
 
+## 3. 系统管理
 
-3.1.rpm命令 – RPM软件包管理器
-rpm命令是Red-Hat Package Manager（RPM软件包管理器）的缩写， 该命令用于管理Linux 下软件包的软件。在 Linux 操作系统下，几乎所有的软件均可以通过RPM 进行安装、卸载及管理等操作。
+### 软件包管理器
 
-概括的说，rpm命令包含了五种基本功能：安装、卸载、升级、查询和验证
+​	大多数现代的类 Unix 操作系统都提供了一种中心化的机制用来搜索和安装软件。软件通常都是存放在存储库中，并通过包的形式进行分发。处理包的工作被称为包管理。包提供了操作系统的基本组件，以及共享的库、应用程序、服务和文档。关于包管理工具的详细内容，可以参考[这里](Linux 包管理基础.md)
 
-语法格式：rpm [参数] [软件包]
+### sudo - 获取管理员权限
 
-常用参数：
+> ​	Linux sudo命令以系统管理者的身份执行指令，也就是说，经由 sudo 所执行的指令就好像是 root 亲自执行。
 
-参数名	解释
--a	查询所有的软件包
--b或-t	设置包装套件的完成阶段，并指定套件档的文件名称；
--c	只列出组态配置文件，本参数需配合”-l”参数使用
--d	只列出文本文件，本参数需配合”-l”参数使用
--e或–erase	卸载软件包
--f	查询文件或命令属于哪个软件包
--h或–hash	安装软件包时列出标记
--i	显示软件包的相关信息
-–install	安装软件包
--l	显示软件包的文件列表
--p	查询指定的rpm软件包
--q	查询软件包
--R	显示软件包的依赖关系
--s	显示文件状态，本参数需配合”-l”参数使用
--U或–upgrade	升级软件包
--v	显示命令执行过程
--vv	详细显示指令执行过程
-参考实例
+### uname – 显示系统信息
 
-直接安装软件包：
-[root@admin~]# rpm -ivh packge.rpm
-忽略报错，强制安装：
-[root@admin~]# rpm --force -ivh package.rpm
-列出所有安装过的包：
-[root@admin~]# rpm -qa
-查询rpm包中的文件安装的位置：
-[root@admin~]# rpm -ql ls
-卸载rpm包：
-[root@admin~]# rpm -e package.rpm
-升级软件包：
-[root@admin~]# rpm -U file.rpm
-3.2.find命令 – 查找和搜索文件
-find命令可以根据给定的路径和表达式查找的文件或目录。find参数选项很多，并且支持正则，功能强大。和管道结合使用可以实现复杂的功能，是系统管理者和普通用户必须掌握的命令。
+​	uname命令的英文全称即“Unix name”。
 
-find如不加任何参数，表示查找当前路径下的所有文件和目录，如果服务器负载比较高尽量不要在高峰期使用find命令，find命令模糊搜索还是比较消耗系统资源的。
+​	用于显示系统相关信息，比如主机名、内核版本号、硬件架构等。
 
-语法格式：find [参数] [路径] [查找和搜索范围]
+​	如果未指定任何选项，其效果相当于执行”uname -s”命令，即显示系统内核的名字。
 
-常用参数：
+语法格式：`uname [参数]`
 
-参数名	解释
--name	按名称查找
--size	按大小查找
--user	按属性查找
--type	按类型查找
--iname	忽略大小写
-参考实例
-
-使用-name参数查看/etc目录下面所有的.conf结尾的配置文件：
-[root@admin~]# find /etc -name "*.conf
-使用-size参数查看/etc目录下面大于1M的文件：
-[root@admin~]# find /etc -size +1M
-查找当前用户主目录下的所有文件：
-[root@admin~]# find $HOME -print
-列出当前目录及子目录下所有文件和文件夹：
-[root@admin~]# find .
-在/home目录下查找以.txt结尾的文件名：
-[root@admin~]# find /home -name "*.txt"
-在/var/log目录下忽略大小写查找以.log结尾的文件名：
-[root@admin~]# find /var/log -iname "*.log"
-搜索超过七天内被访问过的所有文件：
-[root@admin~]# find . -type f -atime +7
-搜索访问时间超过10分钟的所有文件：
-[root@admin~]# find . -type f -amin +10
-找出/home下不是以.txt结尾的文件：
-[root@admin~]# find /home ! -name "*.txt"
-3.3.uname命令 – 显示系统信息
-uname命令的英文全称即“Unix name”。
-
-用于显示系统相关信息，比如主机名、内核版本号、硬件架构等。
-
-如果未指定任何选项，其效果相当于执行”uname -s”命令，即显示系统内核的名字。
-
-语法格式：uname [参数]
-
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -a	显示系统所有相关信息
 -m	显示计算机硬件架构
 -n	显示主机名称
@@ -643,157 +576,57 @@ uname命令的英文全称即“Unix name”。
 -o	显示操作系统名称
 -i	显示硬件平台
 参考实例
-
-显示系统主机名、内核版本号、CPU类型等信息：
+# 显示系统主机名、内核版本号、CPU类型等信息：
 [root@admin~]# uname -a
-Linux admin3.10.0-123.el7.x86_64 #1 SMP Mon May 5 11:16:57 EDT 2014 x86_64 x86_64 x86_64 GNU/Linux
-仅显示系统主机名：
-[root@admin~]# uname -n
-admin
-显示当前系统的内核版本 :
-[root@admin~]# uname -r
-3.10.0-123.el7.x86_64
-显示当前系统的硬件架构：
-[root@admin~]# uname -i
-x86_64
-3.4.user*命令
-3.4.1.useradd命令 – 创建新用户
-useradd命令 用于Linux中创建的新的系统用户。useradd可用来建立用户帐号。帐号建好之后，再用passwd设定帐号的密码．而可用userdel删除帐号。使用useradd指令所建立的帐号，实际上是保存在/etc/passwd文本文件中。
+Linux admin3.10.0-123.el7.x86_64 #1 SMP Mon May 5 11:16:57 EDT 2022 x86_64 x86_64 x86_64 GNU/Linux
+```
 
-在Slackware中，adduser指令是个script程序，利用交谈的方式取得输入的用户帐号资料，然后再交由真正建立帐号的useradd命令建立新用户，如此可方便管理员建立用户帐号。在Red Hat Linux中， adduser命令 则是useradd命令的符号连接，两者实际上是同一个指令。
+### user*命令
 
-语法
-useradd(选项)(参数)
+#### useradd – 创建新用户
+> ​	useradd命令 用于Linux中创建的新的系统用户。useradd可用来建立用户帐号。帐号建好之后，再用passwd设定帐号的密码．而可用userdel删除帐号。使用useradd指令所建立的帐号，实际上是保存在/etc/passwd文本文件中。
+>
+> ​	在Slackware中，adduser指令是个script程序，利用交谈的方式取得输入的用户帐号资料，然后再交由真正建立帐号的useradd命令建立新用户，如此可方便管理员建立用户帐号。在Red Hat Linux中， adduser命令 则是useradd命令的符号连接，两者实际上是同一个指令。
 
-参数名	解释
--c<备注>	加上备注文字。备注文字会保存在passwd的备注栏位中；
--d<登入目录>	指定用户登入时的启始目录；
--D	变更预设值；
--e<有效期限>	指定帐号的有效期限；
--f<缓冲天数>	指定在密码过期后多少天即关闭该帐号；
--g<群组>	指定用户所属的群组；
--G<群组>	指定用户所属的附加群组；
--m	自动建立用户的登入目录；
--M	不要自动建立用户的登入目录；
--n	取消建立以用户名称为名的群组；
--r	建立系统帐号；
--s	指定用户登入后所使用的shell；
--u	指定用户id。
-实例
+语法：`useradd [选项][参数]`
 
-新建用户加入组：
-[root@admin~]# useradd –g sales jack –G company,employees
-//-g：加入主要组、-G：加入次要组
-建立 一个新用户账户，并设置ID：
-[root@admin~]# useradd caojh -u 544
-需要说明的是，设定ID值时尽量要大于500，以免冲突。因为Linux安装后会建立一些特殊用户，一般0到499之间的值留给bin、mail这样的系统账号。
-3.4.2.usermod命令 – 修改用户的基本信息
-usermod命令 用于修改用户的基本信息。usermod 命令不允许你改变正在线上的使用者帐号名称。当 usermod 命令用来改变user id，必须确认这名user没在电脑上执行任何程序。你需手动更改使用者的 crontab 档。也需手动更改使用者的 at 工作档。采用 NIS server 须在server上更动相关的NIS设定。
+#### usermod – 修改用户的基本信息
 
-语法
-usermod(选项)(参数)
+> ​	usermod命令 用于修改用户的基本信息。usermod 命令不允许你改变正在线上的使用者帐号名称。当 usermod 命令用来改变user id，必须确认这名user没在电脑上执行任何程序。你需手动更改使用者的 crontab 档。也需手动更改使用者的 at 工作档。采用 NIS server 须在server上更动相关的NIS设定。
+
+语法：`usermod [选项][参数]`
+
+#### userdel – 删除给定的用户以及与用户相关的文件
+> ​	userdel命令 用于删除给定的用户，以及与用户相关的文件。若不加选项，则仅删除用户帐号，而不删除相关文件。
+
+语法：`userdel [选项][参数]`
 
 选项
 
-参数名	解释
--c<备注>	修改用户帐号的备注文字；
--d<登入目录>	修改用户登入时的目录，只是修改/etc/passwd中用户的家目录配置信息，不会自动创建新的家目录，通常和-m一起使用；
--m<移动用户家目录>	移动用户家目录到新的位置，不能单独使用，一般与-d一起使用。
--e<有效期限>	修改帐号的有效期限；
--f<缓冲天数>	修改在密码过期后多少天即关闭该帐号；
--g<群组>	修改用户所属的群组；
--G<群组>	修改用户所属的附加群组；
--l<帐号名称>	修改用户帐号名称；
--L	锁定用户密码，使密码无效；
--s	修改用户登入后所使用的shell；
--u	修改用户ID；
--U	解除密码锁定。
-参数
+- -f	强制删除用户，即使用户当前已登录；
+- -r	删除用户的同时，删除与用户相关的所有文件。
 
-登录名：指定要修改信息的用户登录名。
+​	请不要轻易用-r选项；他会删除用户的同时删除用户所有的文件和目录，切记如果用户目录下有重要的文件，在删除前请备份。其实也有最简单的办法，但这种办法有点不安全，也就是直接在/etc/passwd中删除您想要删除用户的记录；但最好不要这样做，/etc/passwd是极为重要的文件，可能您一不小心会操作失误。
 
-实例
+#### usernetctl – 被允许时操作指定的网络接口
 
-将 newuser2 添加到组 staff 中：
-usermod -G staff newuser2
-修改newuser的用户名为newuser1：
-usermod -l newuser1 newuser
-锁定账号newuser1：
-usermod -L newuser1
-解除对newuser1的锁定：
-usermod -U newuser1
-增加用户到用户组中:
-apk add shadow # 安装 shadow 包, usermod 命令包含在 usermod 中
-usermod -aG group user # 添加用户到用户组中
--a 参数表示附加，只和 -G 参数一同使用，表示将用户增加到组中。
-修改用户家目录：
+> usernetctl命令在用于被允许时操作指定的网络接口。在使用上和”ifup”、”ifon”命令有些类似。
 
-[root@node-1 ~]# useradd lutixiaya
-[root@node-1 ~]# ls /home
-lutixiaya
-[root@node-1 ~]# usermod -md /data/new_home lutixiaya
-[root@node-1 ~]# ls /home/
-[root@node-1 ~]# ls /data/
-new_home
-1
-2
-3
-4
-5
-6
-7
-3.4.3.userdel命令 – 删除给定的用户以及与用户相关的文件
-userdel命令 用于删除给定的用户，以及与用户相关的文件。若不加选项，则仅删除用户帐号，而不删除相关文件。
-
-语法
-userdel(选项)(参数)
-
-选项
-
-参数名	解释
--f	强制删除用户，即使用户当前已登录；
--r	删除用户的同时，删除与用户相关的所有文件。
-参数
-用户名：要删除的用户名。
-
-实例
-
-userdel命令很简单，比如我们现在有个用户linuxde，其家目录位于/var目录中，现在我们来删除这个用户：
-
-[root@node-1 ~]# userdel linuxde # 删除用户linuxde，但不删除其家目录及文件；
-[root@node-1 ~]# userdel -r linuxde # 删除用户linuxde，其家目录及文件一并删除；
-
-请不要轻易用-r选项；他会删除用户的同时删除用户所有的文件和目录，切记如果用户目录下有重要的文件，在删除前请备份。
-
-其实也有最简单的办法，但这种办法有点不安全，也就是直接在/etc/passwd中删除您想要删除用户的记录；但最好不要这样做，/etc/passwd是极为重要的文件，可能您一不小心会操作失误。
-
-3.4.4.usernetctl命令 – 被允许时操作指定的网络接口
-usernetctl命令在用于被允许时操作指定的网络接口。在使用上和”ifup”、”ifon”命令有些类似。
-
-语法格式：usernetctl [参数] [网络接口]
+语法格式：`usernetctl [参数] [网络接口]`
 
 常用参数：
 
-参数名	解释
-up	激活网络接口
-down	禁用网络接口
-report	报告网络接口
-参考实例
+- up	激活网络接口
+- down	禁用网络接口
+- report	报告网络接口状态
 
-激活网络接口：
-[root@admin~]# usernetctl enp1s0 up
-禁用网络接口：
-[root@admin~]# usernetctl enp1s0 down
-报告网络接口状态：
-[root@admin~]# usernetctl enp1s0 report
-3.5.ch*命令
-3.5.1.chage命令 – 修改帐号和密码的有效期限
-语法
-chage [选项] 用户名
 
-选项
+### ch*命令
+#### chage – 修改帐号和密码的有效期限
+语法：`chage [选项][参数] 用户名`
 
-参数名	解释
+```shell
+# 常用参数
 -m	密码可更改的最小天数。为零时代表任何时候都可以更改密码。
 -M	密码保持有效的最大天数。
 -w	用户密码到期前，提前收到警告信息的天数。
@@ -801,99 +634,22 @@ chage [选项] 用户名
 -d	上一次更改的日期。
 -i	停滞时期。如果一个密码已过期这些天，那么此帐号将不可用。
 -l	例出当前的设置。由非特权用户来确定他们的密码或帐号何时过期。
-实例
+```
 
-可以编辑/etc/login.defs来设定几个参数，以后设置口令默认就按照参数设定为准：
-PASS_MAX_DAYS   99999
-PASS_MIN_DAYS   0
-PASS_MIN_LEN    5
-PASS_WARN_AGE   7
-1
-2
-3
-4
-当然在/etc/default/useradd可以找到如下2个参数进行设置：
-# useradd defaults file
-GROUP=100
-HOME=/home
-INACTIVE=-1
-EXPIRE=
-SHELL=/bin/bash
-SKEL=/etc/skel
-CREATE_MAIL_SPOOL=yes
-1
-2
-3
-4
-5
-6
-7
-8
-通过修改配置文件，能对之后新建用户起作用，而目前系统已经存在的用户，则直接用chage来配置。
-我的服务器root帐户密码策略信息如下：
-[root@admin~]# chage -l root
+> 可以编辑/etc/login.defs来设定几个参数，以后设置口令默认就按照参数设定为准：
+>
+> ```shell
+> PASS_MAX_DAYS   99999
+> PASS_MIN_DAYS   0
+> PASS_MIN_LEN    5
+> PASS_WARN_AGE   7
+> ```
+>
+> 通过修改配置文件，能对之后新建用户起作用，而目前系统已经存在的用户，则直接用chage来配置。
 
-最近一次密码修改时间                  ： 3月 12, 2013
-密码过期时间                         ：从不
-密码失效时间                         ：从不
-帐户过期时间                         ：从不
-两次改变密码之间相距的最小天数          ：0
-两次改变密码之间相距的最大天数          ：99999
-在密码过期之前警告的天数               ：7
-1
-2
-3
-4
-5
-6
-7
-8
-9
-我可以通过如下命令修改我的密码过期时间：
-[root@admin~]# chage -M 60 root
-[root@admin~]# chage -l root
-最近一次密码修改时间                  ： 3月 12, 2013
-密码过期时间                         ： 5月 11, 2013
-密码失效时间                         ：从不
-帐户过期时间                         ：从不
-两次改变密码之间相距的最小天数          ：0
-两次改变密码之间相距的最大天数          ：60
-在密码过期之前警告的天数               ：9
-1
-2
-3
-4
-5
-6
-7
-然后通过如下命令设置密码失效时间：
-[root@admin~]# chage -I 5 root
-[root@admin~]# chage -l root
-
-最近一次密码修改时间                  ： 3月 12, 2013
-密码过期时间                         ： 5月 11, 2013
-密码失效时间                         ： 5月 16, 2013
-帐户过期时间                         ：从不
-两次改变密码之间相距的最小天数          ：0
-两次改变密码之间相距的最大天数          ：60
-在密码过期之前警告的天数               ：9
-
-1
-2
-3
-4
-5
-6
-7
-8
-从上述命令可以看到，在密码过期后5天，密码自动失效，这个用户将无法登陆系统了。
-
-3.5.2.chattr – 改变文件属性
-语法
-chattr(选项)
-选项
-
-参数名	解释
+#### chattr – 改变文件属性
+```shell
+# 常用参数
 a	让文件或目录仅供附加用途；
 b	不更新文件或目录的最后存取时间；
 c	将文件或目录压缩后存放；
@@ -908,145 +664,68 @@ u	预防意外删除。
 +<属性>	开启文件或目录的该项属性；
 -<属性>	关闭文件或目录的该项属性；
 =<属性>	指定文件或目录的该项属性。
-实例
-
-用chattr命令防止系统中某个关键文件被修改：
+# 参考实例
+# 用chattr命令防止系统中某个关键文件被修改：
 [root@admin~]# chattr +i /etc/fstab
-然后试一下rm、mv、rename等命令操作于该文件，都是得到Operation not permitted的结果。
-让某个文件只能往里面追加内容，不能删除，一些日志文件适用于这种操作：
+# 然后试一下rm、mv、rename等命令操作于该文件，都是得到Operation not permitted的结果。
+# 让某个文件只能往里面追加内容，不能删除，一些日志文件适用于这种操作：
 [root@admin~]# chattr +a /data1/user_act.log
-3.5.3.chown命令 – 变更文件或目录的拥有者或所属群组
-chown命令 改变某个文件或目录的所有者和所属的组，该命令可以向某个用户授权，使该用户变成指定文件的所有者或者改变文件所属的组。用户可以是用户或者是用户D，用户组可以是组名或组id。文件名可以使由空格分开的文件列表，在文件名中可以包含通配符。
+```
 
-只有文件主和超级用户才可以便用该命令。
+#### chown命令 – 变更文件或目录的拥有者或所属群组
 
-语法
-chown(选项)(参数)
+> ​	chown命令 改变某个文件或目录的所有者和所属的组，该命令可以向某个用户授权，使该用户变成指定文件的所有者或者改变文件所属的组。用户可以是用户或者是用户D，用户组可以是组名或组id。文件名可以使由空格分开的文件列表，在文件名中可以包含通配符。
+>
+> ​	只有文件主和超级用户才可以便用该命令。
 
-选项
-
-参数名	解释
+```shell
+# 常用参数
 -c或——changes	效果类似“-v”参数，但仅回报更改的部分；
 -f或–quite或——silent	不显示错误信息；
 -h或–no-dereference	只对符号连接的文件作修改，而不更改其他任何相关文件；
 -R或——recursive	递归处理，将指定目录下的所有文件及子目录一并处理；
 -v或——version	显示指令执行过程；
-–dereference	效果和“-h”参数相同；
-–help	在线帮助
-–version	显示版本信息。
-参数
-
-用户：组：指定所有者和所属工作组。当省略“：组”，仅改变文件所有者；
-文件：指定要改变所有者和工作组的文件列表。支持多个文件和目标，支持shell通配符。
-
-实例
-
-将目录/usr/meng及其下面的所有文件、子目录的文件组改成 liu：
+# 参考实例
+# 将目录/usr/meng及其下面的所有文件、子目录的文件组改成 liu：
 [root@admin~]# chown -R liu /usr/meng
-将当前目录下所有文件的拥有者都改为 linuxcool，用户组改为 linuxcoolgroup:
+# 将当前目录下所有文件的拥有者都改为 linuxcool，用户组改为 linuxcoolgroup:
 [root@admin~]# chown -R linuxcool:linuxcoolgroup *
-3.5.4.chgrp命令 – 更改文件用户组
-hgrp是英语单词“change group”的缩写，命令的作用和其中文释义一样，为用于变更文件或目录的所属群组。
+```
 
-语法格式: chgrp [参数] [目录]
 
-常用参数：
+#### chgrp – 更改文件用户组
 
-参数名	解释
--c	效果类似”-v”参数，但仅回报更改的部分
--f	不显示错误信息
--h	对符号连接的文件作修改，而不更动其他任何相关文件
--R	递归处理，将指定目录下的所有文件及子目录一并处理
--v	显示指令执行过程
-–reference	把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同
-参考实例
+> chgrp是英语单词“change group”的缩写，命令的作用和其中文释义一样，为用于变更文件或目录的所属群组。
 
-改变文件的群组属性：
-[root@admin~]# chgrp -v linuxcool file
-根据指定文件改变文件的群组属性：
-[root@admin~]# chgrp --reference=file_1 file_2
-将/usr/linuxcool及其子目录下的所有文件的用户组改为cool：
-[root@admin~]# chgrp -R cool /usr/linuxcool
-3.5.5.chmod命令 – 改变文件或目录权限
-chmod命令的英文原意是“change the permissions mode of a file”，我们简称为“change mode”，意为用来改变文件或目录权限的命令，但是只有文件的属主和超级用户root才能执行这个命令。有两种模式，一种是采用权限字母和操作符表达式；另一种是采用数字。
+​	语法格式: `chgrp [参数] [目录]`
 
-语法格式： chmod [参数] [文件]
+#### chmod命令 – 改变文件或目录权限
 
-常用参数：
+> ​	chmod命令的英文原意是“change the permissions mode of a file”，我们简称为“change mode”，意为用来改变文件或目录权限的命令，但是只有文件的属主和超级用户root才能执行这个命令。有两种模式，一种是采用权限字母和操作符表达式；另一种是采用数字。
+>
+> ​	Linux/Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users）。分别用u, g, o表示，用a可以表示所有用户。
 
-参数名	解释
--c	若该文件权限确实已经更改，才显示其更改动作
--f	若该文件权限无法被更改也不显示错误讯息
--v	显示权限变更的详细资料
--R	对目前目录下的所有文件与子目录进行相同的权限变更(即以递回的方式逐个变更)
-参考实例
+语法格式：`chmod [选项] ([ugoa...][[+-=][rwxX]...][,...]) [文件]`
 
-将档案 file1.txt 设为所有人皆可读取：
-[root@admin~]# chmod a+r file.txt
-将目前目录下的所有文件与子目录皆设为任何人可读取 :
-[root@admin~]# chmod -R a+r *
-将 file.txt 设定为只有该文件拥有者可以执行：
-[root@admin~]# chmod u+x file.txt
-最大权限
-[root@admin~]# chmod 777 file.txt
-3.6.group*命令
-3.6.1.groupmod命令 – 更改群组识别码或名称
-groupmod命令用于更改群组的识别码或名称时。不过大家还是要注意，用户名不要随意修改，组名和 GID 也不要随意修改，因为非常容易导致管理员逻辑混乱。如果非要修改用户名或组名，则建议大家先删除旧的，再建立新的。
+文件具有三种权限：
 
-语法格式：groupmod [参数]
+- r 读取
+- w 写入
+- x 运行
 
-常用参数：
+这三个权限分别用一个二进制数表示，如权限为`rwx`，对应的二进制数就是`111`。
 
-参数名	解释
--g	设置欲使用的群组识别码
--o	重复使用群组识别码
--n	设置欲使用的群组名称
-参考实例
+```shell
+# 参考实例
+# 将文件 file1.txt 设为所有人皆可读取 :
+[root@admin~]# chmod a+r file1.txt
+# 为 ex1.py 文件拥有者增加可执行权限:
+[root@admin~]# chmod u+x ex1.py
+# 此外chmod也可以用三个数字来表示权限，下面表示所有用户都拥有rwx权限
+[root@admin~]# chmod 777 file
+```
 
-更改admin用户组为root：
-[root@admin~]# groupmod -n root admin
-将user1用户组的识别码改为603
-[root@localhosthome]# groupmod -g 603 user1
-将user1用户组的组名改为user5
-[root@localhosthome]# groupmod -n user5 user1
-3.6.2.groupadd命令 – 新建工作组
-groupadd命令用于创建一个新的工作组，新工作组的信息将被添加到系统文件中。
 
-语法格式：groupadd [参数]
-
-常用参数：
-
-参数名	解释
--g	指定新建工作组的id
--r	创建系统工作组，系统工作组的组ID小于500
--K	覆盖配置文件“/ect/login.defs”
--o	允许添加组ID号不唯一的工作组
-参考实例
-
-使用-g参数新建admin工作组名，1005是工作组id：
-[root@admin~]# groupadd -g 1005 admin
-使用-r创建系统工作组：
-[root@admin~]# groupadd -r -g 368 admin
-3.6.3.groupdel命令 – 删除用户组
-groupdel命令用于删除指定的工作组，本命令要修改的系统文件包括/ect/group和/ect/gshadow。
-
-userdel修改系统账户文件，删除与 GROUP 相关的所有项目。给出的组名必须存在。若该群组中仍包括某些用户，则必须先删除这些用户后，方能删除群组。
-
-语法格式：groupdel [参数] [群组名称]
-
-常用参数：
-
--h 显示帮助信息
--R 在chroot_dir目录中应用更改并使用chroot_dir目录中的配置文件
-参考实例
-
-使用groupdel命令删除linuxcool工作组：
-
-[root@linuxcool ~]# groupdel linuxcool
-查看linuxcool组是否删除成功：
-
-[root@linuxcool ~]# more /etc/group|grep linuxcool
-通过查看/etc/group配置文件里面不存在linuxcool组，说明已经被删除了。
 
 4.磁盘管理
 4.1.df命令 – 显示磁盘空间使用情况
