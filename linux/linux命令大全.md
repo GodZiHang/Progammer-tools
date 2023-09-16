@@ -727,17 +727,17 @@ u	预防意外删除。
 
 
 
-4.磁盘管理
-4.1.df命令 – 显示磁盘空间使用情况
+## 4.磁盘管理
+
+### df命令 – 显示磁盘空间使用情况
 df命令的英文全称即“Disk Free”，顾名思义功能是用于显示系统上可使用的磁盘空间。默认显示单位为KB，建议使用“df -h”的参数组合，根据磁盘容量自动变换合适的单位，更利于阅读。
 
 日常普遍用该命令可以查看磁盘被占用了多少空间、还剩多少空间等信息。
 
-语法格式： df [参数] [指定文件]
+语法格式： `df [参数] [指定文件]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -a	显示所有系统文件
 -B <块大小>	指定显示时的块大小
 -h	以容易阅读的方式显示
@@ -748,9 +748,8 @@ df命令的英文全称即“Disk Free”，顾名思义功能是用于显示系
 -t	<文件系统类型> 只显示指定类型的文件系统
 -T	输出时显示文件系统类型
 – -sync	在取得磁盘使用信息前，先执行sync命令
-参考实例
 
-显示磁盘分区使用情况：
+# 参考实例
 [root@admin~]# df
 文件系统                             1K-块    已用     可用   已用% 挂载点
 devtmpfs                           1980612       0  1980612    0% /dev
@@ -761,16 +760,8 @@ tmpfs                              1994756       0  1994756    0% /sys/fs/cgroup
 tmpfs                              1994756       4  1994752    1% /tmp
 /dev/sda1                           999320  128264   802244   14% /boot
 tmpfs                               398948       0   398948   0% /run/user/0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-以容易阅读的方式显示磁盘分区使用情况：
+
+# 以容易阅读的方式显示磁盘分区使用情况：
 [root@admin~]# df -h
 文件系统                           容量   已用   可用  已用% 挂载点
  devtmpfs                           1.9G     0  1.9G    0% /dev
@@ -781,41 +772,28 @@ tmpfs                               398948       0   398948   0% /run/user/0
  tmpfs                              2.0G  4.0K  2.0G    1% /tmp
  /dev/sda1                          976M  126M  784M   14% /boot
  tmpfs                              390M     0  390M    0% /run/user/0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-显示指定文件所在分区的磁盘使用情况：
+
+# 显示指定文件所在分区的磁盘使用情况：
 [root@admin~]# df /etc/dhcp
 文件系统                             1K-块    已用     可用   已用% 挂载点
 /dev/mapper/fedora_linuxcool-root 15718400 2040836 13677564   13% /
-显示文件类型为ext4的磁盘使用情况：
 
+# 显示文件类型为ext4的磁盘使用情况：
 [root@admin~]# df -t ext4
 文件系统        1K-块   已用   可用    已用% 挂载点
 /dev/sda1      999320 128264 802244   14% /boot
-1
-2
-3
-4
-5
-6
-7
-4.2.lsblk命令 – 查看系统的磁盘
+```
+
+
+### lsblk命令 – 查看系统的磁盘
 lsblk命令的英文是“list block”，即用于列出所有可用块设备的信息，而且还能显示他们之间的依赖关系，但是它不会列出RAM盘的信息。
 
 lsblk命令包含在util-linux-ng包中，现在该包改名为util-linux。
 
-语法格式：lsblk [参数]
+语法格式：`lsblk [参数]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -a	显示所有设备
 -b	以bytes方式显示设备大小
 -d	不显示 slaves 或 holders
@@ -831,9 +809,9 @@ lsblk命令包含在util-linux-ng包中，现在该包改名为util-linux。
 -P	使用key=”value”格式显示
 -r	使用原始格式显示
 -t	显示拓扑结构信息
-参考实例
 
-lsblk命令默认情况下将以树状列出所有块设备：
+# 参考实例
+# lsblk命令默认情况下将以树状列出所有块设备：
 [root@admin~ ]# lsblk
 lsblk NAME   MAJ:MIN rm  SIZE RO type mountpoint
 sda      8:0    0 232.9G  0 disk 
@@ -844,34 +822,29 @@ sda      8:0    0 232.9G  0 disk
 ├─sda7   8:7    0  93.1G  0 part /data 
 └─sda8   8:8    0  89.2G  0 part /personal 
 sr0     11:0    1  1024M  0 rom
-1
-2
-3
-4
-5
-6
-7
-8
-9
-默认选项不会列出所有空设备：
+# 默认选项不会列出所有空设备：
 [root@admin~]# lsblk -a
-也可以用于列出一个特定设备的拥有关系，同时也可以列出组和模式：
+# 也可以用于列出一个特定设备的拥有关系，同时也可以列出组和模式：
 [root@admin~]# lsblk -m
-要获取SCSI设备的列表，你只能使用-S选项，该选项是用来以颠倒的顺序打印依赖的：
+# 要获取SCSI设备的列表，你只能使用-S选项，该选项是用来以颠倒的顺序打印依赖的：
 [root@admin~]# lsblk -S
-例如，你也许想要以列表格式列出设备，而不是默认的树状格式。可以将两个不同的选项组合，以获得期望的输出：
+# 例如，你也许想要以列表格式列出设备，而不是默认的树状格式。可以将两个不同的选项组合，以获得期望的输出：
 [root@admin~]# lsblk -nl
-5.文件传输
-5.1.tftp命令 – 上传及下载文件
+```
+
+
+## 5.文件传输
+
+### tftp命令 – 上传及下载文件
+
 tftp命令用于传输文件。ftp让用户得以下载存放于远端主机的文件，也能将文件上传到远端主机放置。
 
 tftp是简单的文字模式ftp程序，它所使用的指令和ftp类似。
 
-语法格式：tftp [参数]
+语法格式：`tftp [参数]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 connect	连接到远程tftp服务器
 mode	文件传输模式
 put	上传文件
@@ -886,66 +859,72 @@ rexmt	设置包传输的超时时间
 timeout	设置重传的超时时间
 help	帮助信息
 ?	帮助信息
-参考实例
 
-连接远程服务器”218.28.188.288″：
-[root@linuxcool ~]# tftp 218.28.188.288
-远程下载file文件：
+# 参考实例
+# 连接远程服务器”124.223.96.144″：
+[root@linuxcool ~]# tftp 124.223.96.144
+# 远程下载file文件：
 tftp> get file                            
 getting from 218.28.188.288 to /dir  
 Recived 168236 bytes in 1.5 seconds[112157 bit/s] 
-1
-2
-3
-退出tftp：
+# 退出tftp：
 tftp> quit
-5.2.curl命令 – 文件传输工具
+```
+
+
+### curl命令 – 文件传输工具
+
 curl命令是一个利用URL规则在shell终端命令行下工作的文件传输工具；它支持文件的上传和下载，所以是综合传输工具，但按传统，习惯称curl为下载工具。
 
 作为一款强力工具，curl支持包括HTTP、HTTPS、ftp等众多协议，还支持POST、cookies、认证、从指定偏移处下载部分文件、用户代理字符串、限速、文件大小、进度条等特征；做网页处理流程和数据检索自动化。
 
-语法格式：curl [参数] [网址]
+语法格式：`curl [参数] [网址]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -O	把输出写到该文件中，保留远程文件的文件名
 -u	通过服务端配置的用户名和密码授权访问
-参考实例
 
-将下载的数据写入到文件，必须使用文件的绝对地址：
+# 参考实例
+# 将下载的数据写入到文件，必须使用文件的绝对地址：
 [root@admin~]# curl https://www.linuxcool.com/abc.txt --silent -O
-访问需要授权的页面时，可通过-u选项提供用户名和密码进行授权：
+# 访问需要授权的页面时，可通过-u选项提供用户名和密码进行授权：
 [root@admin~]# curl -u root https://www.linuxprobe.com/
- Enter host password for user 'root':
-1
-5.3.ftpwho命令 – 显示ftp会话信息
+Enter host password for user 'root':
+```
+
+
+### ftpwho命令 – 显示ftp会话信息
+
 tpwho命令用于显示当前所有以FTP登入的用户会话信息。
 
 执行该命令可得知当前用FTP登入系统的用户有哪些人，以及他们正在进行的操作。
 
-语法格式：ftpwho [参数]
+语法格式：`ftpwho [参数]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -h	显示帮助信息
 -v	详细模式，输出更多信息
-参考实例
 
-查询当前正在登录FTP 服务器的用户：
+# 参考实例
+# 询当前正在登录FTP 服务器的用户：
 [root@admin~]# ftpwho
-在详细模式下，查询当前正在登录FTP 服务器的用户：
+# 在详细模式下，查询当前正在登录FTP 服务器的用户：
 [root@admin~]# ftpwho -v
-显示帮助信息：
+# 显示帮助信息：
 [root@admin~]# ftpwho -h
-6.网络通信
-6.1.ssh命令 – 安全连接客户端
-语法格式: ssh [参数] [远程主机]
+```
 
-常用参数：
 
-参数名	解释
+## 6.网络通信
+
+### ssh命令 – 安全连接客户端
+
+语法格式: `ssh [参数] [远程主机]`
+
+```shell
+# 常用参数
 -1	强制使用ssh协议版本1
 -2	强制使用ssh协议版本2
 -4	强制使用IPv4地址
@@ -966,94 +945,77 @@ tpwho命令用于显示当前所有以FTP登入的用户会话信息。
 -X	开启X11转发功能
 -x	关闭X11转发功能
 -y	开启信任X11转发功能
-参考实例
 
-登录远程服务器：
-[root@linuxcool ~]# ssh 202.102.240.88
-用test用户连接远程服务器：
-[root@linuxcool ~]# ssh -l test 202.102.220.88
-查看分区列表：
-[root@linuxcool ~]# ssh 202.102.220.88 /sbin/fdisk -l
-强制使用ssh协议版本1：
+# 参考实例
+# 登录远程服务器：
+[root@linuxcool ~]# ssh 124.223.96.144
+# 用test用户连接远程服务器：
+[root@linuxcool ~]# ssh -l test 124.223.96.144
+# 查看分区列表：
+[root@linuxcool ~]# ssh 124.223.96.144 /sbin/fdisk -l
+# 强制使用ssh协议版本1：
 [root@linuxcool ~]# ssh -1
-开启认证代理连接转发功能：
+# 开启认证代理连接转发功能：
 [root@linuxcool ~]# ssh -A
-6.2.netstat命令 – 显示网络状态
+```
+
+
+### netstat命令 – 显示网络状态
 netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。
 
 从整体上看，netstat的输出结果可以分为两个部分：一个是Active Internet connections，称为有源TCP连接，其中”Recv-Q”和”Send-Q”指%0A的是接收队列和发送队列。这些数字一般都应该是0。如果不是则表示软件包正在队列中堆积。这种情况只能在非常少的情况见到；另一个是Active UNIX domain sockets，称为有源Unix域套接口(和网络套接字一样，但是只能用于本机通信，性能可以提高一倍)。
 
-语法格式：netstat [参数]
-
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -a	显示所有连线中的Socket
 -p	显示正在使用Socket的程序识别码和程序名称
 -u	显示UDP传输协议的连线状况
 -i	显示网络界面信息表单
 -n	直接使用IP地址，不通过域名服务器
-参考实例
 
-显示详细的网络状况：
+# 参考实例
+# 显示详细的网络状况：
 [root@linuxcool ~]# netstat -a
-显示当前户籍UDP连接状况：
+# 显示当前户籍UDP连接状况：
 [root@linuxcool ~]# netstat -nu
-显示UDP端口号的使用情况：
+# 显示UDP端口号的使用情况：
 [root@linuxcool ~]# netstat -apu
 Active Internet connections (servers and established)
 Proto Recv-Q Send-Q Local Address  Foreign Address  State  PID/Program name    
 udp        0      0 0.0.0.0:bootpc          0.0.0.0:*      4000/dhclient       
 udp        0      0 localhost:323           0.0.0.0:*      3725/chronyd        
 udp6       0      0 localhost:323           [::]:*         3725/chronyd 
-1
-2
-3
-4
-5
-显示网卡列表：
+# 显示网卡列表：
 [root@linuxcool ~]# netstat -i
 Kernel Interface table 
 Iface MTU Met  RX-OK  RX-ERR  RX-DRP RX-OVR  TX-OK TX-ERR TX-DRP TX-OVR Flg 
 eth0 1500   0  181864   0      0       0     141278   0     0     0    BMRU 
 lo   16436  0   3362    0      0       0     3362     0     0     0    LRU
-1
-2
-3
-4
-显示组播组的关系：
-[root@linuxcool ~]# netstat -g
-IPv6/IPv4 Group Memberships Interface    
-RefCnt Group 
---------------- ------ ---------------------
-lo        1   ALL-SYSTEMS.MCAST.NET 
-eth0      1   ALL-SYSTEMS.MCAST.NET lo       1   ff02::1 
-eth0      1   ff02::1:ff0a:b0c eth0          1   ff02::1
-1
-2
-3
-4
-5
-6
-6.3.hostnam命令 — 查看主机名称
-查看主机名称
+```
+
+### hostnam命令 — 查看主机名称
+
+```shell
+# 查看主机名称
 [root@localhosthome]# hostname
 
-临时修改主机名（重启后失效）
+# 临时修改主机名（重启后失效）
 [root@localhosthome]# hostname mytest
 
-永久性修改主机名
-配置文件路径/etc/sysconfig/network
+# 永久性修改主机名
+# 配置文件路径/etc/sysconfig/network
 [root@localhosthome]# vi network
+```
 
-6.4.ping命令
+### ping命令
+
 ping命令一般用于检测网络通与不通或者网络连接速度的命令，也叫时延，其 值越大，速度越慢
 
 Linux系统下的ping命令与Windows系统下的ping命令稍有不同。Windows 下运行ping命令一般会发出4个请求就结束运行该命令。
 而Linux下不会自动终止，此时需要我们按CTR+C终止
-常用参数：
 
-参数名	解释
+```shell
+# 常用参数
 -d	使用Socket的SO_DEBUG功能
 -c	指定发送报文的次数
 -i	指定收发信息的间隔时间
@@ -1066,121 +1028,131 @@ Linux系统下的ping命令与Windows系统下的ping命令稍有不同。Window
 -s	设置数据包的大小
 -t	设置存活数值TTL的大小
 -v	详细显示指令的执行过程
-示例
-查看本机的连通性
-[root@localhosthome]# ping 127.0.0.1
-查看百度是否连通
-[root@localhosthome]# ping www.baidu.com
-连续ping4次查看
-[root@localhosthome]# ping -c 4 www.baidu.com
 
-7.设备管理
-7.1.sensors命令 – 检测服务器内部温度及电压
+# 参考实例
+# 查看本机的连通性
+[root@localhosthome]# ping 127.0.0.1
+# 查看百度是否连通
+[root@localhosthome]# ping www.baidu.com
+# 连续ping4次查看
+[root@localhosthome]# ping -c 4 www.baidu.com
+```
+
+## 7.设备管理
+
+### sensors命令 – 检测服务器内部温度及电压
+
 sensors命令用于检测服务器内部降温系统是否健康，可以监控主板，CPU的工作电压，风扇转速、温度等数据 。
 
-语法格式：sensors
+语法格式：`sensors`
 
-参考实例
-
-检测cpu工作电压，温度等：
-
+```shell
+# 参考实例
+# 检测cpu工作电压，温度等：
 [root@linuxcool ~]# sensors 
 coretemp-isa-0000 
 Core 0:      +48.0°C  (high = +87.0°C, crit = +97.0°C)   
 Core 1:      +46.0°C  (high = +87.0°C, crit = +97.0°C)   
 Core 2:      +47.0°C  (high = +87.0°C, crit = +97.0°C)   
 Core 3:      +46.0°C  (high = +87.0°C, crit = +97.0°C) 
-1
-2
-3
-4
-5
-6
-7.2.lspci命令 – 显示当前设备所有PCI总线信息
+```
+
+
+### lspci命令 – 显示当前设备所有PCI总线信息
+
 lspci命令用于显示当前主机的所有PCI总线信息，以及所有已连接的PCI设备信息。 现在主流设备如网卡储存等都采用PCI总线
 
-语法格式：lspci [参数]
+语法格式：`lspci [参数]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -n	以数字方式显示PCI厂商和设备代码
 -t	以树状结构显示PCI设备的层次关系
 -b	以总线为中心的视图
 -s	仅显示指定总线插槽的设备和功能块信息
 -i	指定PCI编号列表文件，不使用默认文件
 -m	以机器可读方式显示PCI设备信息
-参考实例
 
-显示当前主机的所有PCI总线信息：
+# 参考实例
+# 显示当前主机的所有PCI总线信息：
 [root@linuxcool ~]# lspci
-以树状结构显示PCI设备的层次关系：
+# 以树状结构显示PCI设备的层次关系：
 [root@linuxcool ~]# lspci -t
-8.备份压缩
-8.1.zip命令 – 压缩文件
+```
+
+
+## 8.备份压缩
+
+### zip命令 – 压缩文件
+
 zip程序将一个或多个压缩文件与有关文件的信息(名称、路径、日期、上次修改的时间、保护和检查信息以验证文件完整性)一起放入一个压缩存档中。可以使用一个命令将整个目录结构打包到zip存档中。
 
 对于文本文件来说，压缩比为2：1和3：1是常见的。zip只有一种压缩方法(通缩)，并且可以在不压缩的情况下存储文件。(如果添加了bzip 2支持，zip也可以使用bzip 2压缩，但这些条目需要一个合理的现代解压缩来解压缩。当选择bzip 2压缩时，它将通货紧缩替换为默认方法。)zip会自动为每个要压缩的文件选择更好的两个文件(通缩或存储，如果选择bzip2，则选择bzip2或Store)。
 
-语法格式： zip [参数] [文件]
+语法格式： `zip [参数] [文件]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -q	不显示指令执行过程
 -r	递归处理，将指定目录下的所有文件和子目录一并处理
 -z	替压缩文件加上注释
 -v	显示指令执行过程或显示版本信息
 -n<字尾字符串>	不压缩具有特定字尾字符串的文件
-参考实例
 
-将 /home/html/ 这个目录下所有文件和文件夹打包为当前目录下的 html.zip：
+# 参考实例
+# 将 /home/html/ 这个目录下所有文件和文件夹打包为当前目录下的 html.zip：
 [root@admin~]# zip -q -r html.zip /home/html
-压缩文件 cp.zip 中删除文件 a.c：
+# 压缩文件 cp.zip 中删除文件 a.c：
 [root@admin~]# zip -dv cp.zip a.c
-把/home目录下面的mydata目录压缩为mydata.zip：
+# 把/home目录下面的mydata目录压缩为mydata.zip：
 [root@admin~]# zip -r mydata.zip mydata
-把/home目录下面的abc文件夹和123.txt压缩成为abc123.zip：
+# 把/home目录下面的abc文件夹和123.txt压缩成为abc123.zip：
 [root@admin~]# zip -r abc123.zip abc 123.txt
-将 logs目录打包成 log.zip：
+# 将 logs 目录打包成 log.zip：
 [root@admin~]# zip -r log.zip ./logs
-8.2.unzip命令 – 解压缩zip文件
+```
+
+
+### unzip命令 – 解压缩zip文件
+
 unzip命令是用于.zip格式文件的解压缩工具 ，unzip命令将列出、测试或从zip格式存档中提取文件，这些文件通常位于MS-DOS系统上。
 
 默认行为（就是没有选项）是从指定的ZIP存档中提取所有的文件到当前目录（及其下面的子目录）。一个配套程序zip（1L）创建ZIP存档；这两个程序都与PKWARE的PKZIP和PKUNZIP为MS-DOS创建的存档文件兼容，但许多情况下，程序选项或默认行为是不同的。
 
-语法格式：unzip [参数] [文件]
+语法格式：`unzip [参数] [文件]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -l	显示压缩文件内所包含的文件
 -v	执行时显示详细的信息
 -c	将解压缩的结果显示到屏幕上，并对字符做适当的转换
 -n	解压缩时不要覆盖原有的文件
 -j	不处理压缩文件中原有的目录路径
-参考实例
 
-把/home目录下面的mydata.zip解压到mydatabak目录里面：
+# 参考实例
+# 把/home目录下面的mydata.zip解压到mydatabak目录里面：
 [root@admin~]# unzip mydata.zip -d mydatabak
-把/home目录下面的wwwroot.zip直接解压到/home目录里面：
+# 把/home目录下面的wwwroot.zip直接解压到/home目录里面：
 [root@admin~]# unzip wwwroot.zip
-把/home目录下面的abc12.zip、abc23.zip、abc34.zip同时解压到/home目录里面：
-[root@admin~]# unzip abc\*.zip
-查看把/home目录下面的wwwroot.zip里面的内容：
+# 把/home目录下面的abc12.zip、abc23.zip、abc34.zip同时解压到/home目录里面：
+[root@admin~]# unzip abc*.zip
+# 查看把/home目录下面的wwwroot.zip里面的内容：
 [root@admin~]# unzip -v wwwroot.zip
-验证/home目录下面的wwwroot.zip是否完整：
+# 验证/home目录下面的wwwroot.zip是否完整：
 [root@admin~]# unzip -t wwwroot.zip
-8.3.gzip命令 – 压缩和解压文件
+```
+
+
+### gzip命令 – 压缩和解压文件
+
 gzip命令的英文是“GNUzip”，是常用来压缩文件的工具，gzip是个使用广泛的压缩程序，文件经它压缩过后，其名称后面会多处“.gz”扩展名。
 
 gzip是在Linux系统中经常使用的一个对文件进行压缩和解压缩的命令，既方便又好用。gzip不仅可以用来压缩大的、较少使用的文件以节省磁盘空间，还可以和tar命令一起构成Linux操作系统中比较流行的压缩文件格式。据统计，gzip命令对文本文件有60%～70%的压缩率。减少文件大小有两个明显的好处，一是可以减少存储空间，二是通过网络传输文件时，可以减少传输的时间。
 
-语法格式：gzip [参数]
+语法格式：`gzip [参数]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -a	使用ASCII文字模式
 -d	解开压缩文件
 -f	强行压缩文件
@@ -1189,26 +1161,29 @@ gzip是在Linux系统中经常使用的一个对文件进行压缩和解压缩�
 -r	递归处理，将指定目录下的所有文件及子目录一并处理
 -q	不显示警告信息
 -num	（1-9压缩比例越来越高）-1或–fas指定的数字num调整压缩的速度t表示最快压缩方法（低压缩比），-9或–best表示最慢压缩方法（高压缩比）
-参考实例
 
-把rancher-v2.2.0目录下的每个文件压缩成.gz文件：
+# 参考实例
+# 把rancher-v2.2.0目录下的每个文件压缩成.gz文件：
 [root@rancher-v2.2.0~]# gzip *
-把上例中每个压缩的文件解压，并列出详细的信息：
+# 把上例中每个压缩的文件解压，并列出详细的信息：
 [root@rancher-v2.2.0~]# gzip -dv *
-递归地解压目录：
+# 递归地解压目录：
 [root@rancher-v2.2.0~]# gzip -dr rancher.gz
-解压文件，并列出详细信息
+# 解压文件，并列出详细信息
 [root@rancher-v2.2.0]# gzip -l *
-压缩比例(1-9)
+# 压缩比例(1-9)
 [root@rancher-v2.2.0]# gzip -1 b.txt
-8.4.zipinfo命令 – 查看压缩文件信息
+```
+
+
+### zipinfo命令 – 查看压缩文件信息
+
 zipinfo命令的全称为“zip information”，该命令用于列出压缩文件信息。执行zipinfo指令可得知zip压缩文件的详细信息。
 
-语法格式：zipinfo [参数]
+语法格式：`zipinfo [参数]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -1	只列出文件名称
 -2	此参数的效果和指定”-1″参数类似，但可搭配”-h”,”-t”和”-z”参数使用
 -h	只列出压缩文件的文件名称
@@ -1221,33 +1196,36 @@ zipinfo命令的全称为“zip information”，该命令用于列出压缩文�
 -v	详细显示压缩文件内每一个文件的信息
 -x<范本样式>	不列出符合条件的文件的信息
 -z	如果压缩文件内含有注释，就将注释显示出来
-参考实例
 
-显示压缩文件信息：
+# 参考实例
+# 显示压缩文件信息：
 [root@admin~]# zipinfo file.zip
 Archive: file.zip 486 bytes 3 files
 -rw-r–r-- 2.3 unx 0 bx stor 24-May-10 18:54 a.c
 -rw-r–r-- 2.3 unx 0 bx stor 24-May-10 18:54 b.c
 -rw-r–r-- 2.3 unx 0 bx stor 24-May-10 18:54 c.c
 3 files, 0 bytes uncompressed, 0 bytes compressed: 0.0%
-显示压缩文件中每个文件的信息：
+# 显示压缩文件中每个文件的信息：
 [root@admin~]# zipinfo -v file.zip
-只显示压缩包大小、文件数目：
+# 只显示压缩包大小、文件数目：
 [root@admin~]# zipinfo -h file.zip
 Archive: file.zip
 Zip file size: 907 bytes, number of entries: 3
-生成一个基本的、长格式的列表(而不是冗长的)，包括标题和总计行：
+# 生成一个基本的、长格式的列表(而不是冗长的)，包括标题和总计行：
 [root@linuxcool ~]# zipinfo -l file
-查看存档中最近修改的文件：
+# 查看存档中最近修改的文件：
 [root@linuxcool ~]# zipinfo -T file | sort –nr -k 7 | sed 15q
-8.5.gunzip命令 – 解压文件
+```
+
+
+### gunzip命令 – 解压文件
+
 gunzip命令用于解压文件，它是个使用广泛的解压缩程序，它用于解开被gzip压缩过的文件，这些压缩文件预设最后的扩展名为”.gz”。事实上gunzip就是gzip的硬连接，因此不论是压缩或解压缩，都可通过gzip命令单独完成。
 
-语法格式：gunzip [参数]
+语法格式：`gunzip [参数]`
 
-常用参数：
-
-参数名	解释
+```shell
+# 常用参数
 -a或–ascii	使用ASCII文字模式
 -c或–stdout或–to-stdout	把解压后的文件输出到标准输出设备
 -f或-force	强行解开压缩文件，不理会文件名称或硬连接是否存在以及该文件是否为符号连接
@@ -1262,43 +1240,50 @@ gunzip命令用于解压文件，它是个使用广泛的解压缩程序，它�
 -t或–test	测试压缩文件是否正确无误
 -v或–verbose	显示指令执行过程
 -V或–version	显示版本信息
-参考实例
 
-解压文件：
+# 参考实例
+# 解压文件：
 [root@admin~]# gunzip ab.gz
-解压，显示详细执行过程：
+# 解压，显示详细执行过程：
 [root@admin~]# gunzip -v 1.gz
-指定后缀名解压：
+# 指定后缀名解压：
 [root@admin~]# gunzip -v -S "mygz" 1.mygz
-8.6.tar命令–
+```
+
+
+### tar命令–归档或还原文件
 将许多文件一起保存至一个单独的磁带或磁盘归档，并能从归档中单独还原所需文件
 
-tar [选项…] [FILE]…
+语法格式：`tar [选项…] [FILE]…`
 
-参数名	解释
+```shell
+# 常用参数
 -c或–create	建立新的备份文件
 -t或–list	列出备份文件的内容
 -x或–extract或–get	从备份文件中还原文件
 -z或–gzip或–ungzip	通过gzip指令处理备份文件
 -v或–verbose	显示指令执行过程
 -f<备份文件>或–file=<备份文件>	指定备份文件
-压缩 a.c文件为test.tar.gz
+
+# 参考实例
+# 压缩 a.c文件为test.tar.gz
 [root@admin~]# tar -czvf test.tar.gz a.c
-列出压缩文件内容
+# 列出压缩文件内容
 [root@admin~]# tar -tzvf test.tar.gz
-解压文件
+# 解压文件
 [root@admin~]# tar -xzvf test.tar.gz
-从文件 foo 和 bar 创建归档文件 archive.tar
+# 从文件 foo 和 bar 创建归档文件 archive.tar
 [root@admin~]# tar -cf archive.tar foo bar
-详细列举归档文件 archive.tar 中的所有文件
+# 详细列举归档文件 archive.tar 中的所有文件
 [root@admin~]# tar -tvf archive.tar
-展开归档文件 archive.tar 中的所有文件
+# 展开归档文件 archive.tar 中的所有文件
 [root@admin~]# tar -xf archive.tar
-将所有.jpg的文件打成一个名为all.tar的包。-c是表示产生新的包，-f指定包的文件名
+# 将所有.jpg的文件打成一个名为all.tar的包。-c是表示产生新的包，-f指定包的文件名
 [root@admin~]# tar -cf all.tar *.jpg
-将所有.gif的文件增加到all.tar的包里面去。-r是表示增加文件的意思
+# 将所有.gif的文件增加到all.tar的包里面去。-r是表示增加文件的意思
 [root@admin~]# tar -rf all.tar *.gif
-更新原来tar包all.tar中logo.gif文件，-u是表示更新文件的意思
+# 更新原来tar包all.tar中logo.gif文件，-u是表示更新文件的意思
 [root@admin~]# tar -uf all.tar logo.gif
-列出all.tar包中所有文件，-t是列出文件的意思
+# 列出all.tar包中所有文件，-t是列出文件的意思
 [root@admin~]# tar -tf all.tar
+```
