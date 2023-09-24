@@ -280,8 +280,6 @@ a84cbe490ed363e7fac869a226f6321d6a7e16ff update LATEX
 
   这个语句表示要查看三周前且在四月十八日之后的所有提交（这里的`no-merges`选项表示隐藏合并提交）
 
-- 
-
 #### git reset
 
 ​	首先，Git必须知道当前版本是哪个版本，在Git中，用`HEAD`表示当前版本，也就是最新的提交`a84cbe4...`（注意我的提交ID和你的肯定不一样），上一个版本就是`HEAD^`，上上一个版本就是`HEAD^^`，当然往上100个版本写100个`^`比较容易数不过来，所以写成`HEAD~100`。
@@ -386,10 +384,6 @@ $ git checkout -- test.txt
 
 ### 远程仓库
 
-
-
-#### 
-
 关联远程库
 
 ```
@@ -409,8 +403,6 @@ $ git push -u origin master
 ```
 $ git clone git@github.com:username/repositoryName.git
 ```
-
-
 
 ### 分支管理
 
